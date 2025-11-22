@@ -69,12 +69,15 @@ export default function Home() {
             </div>
           </div>
           <div className={isFullscreen ? 'game-container fullscreen' : 'game-container'}>
-            {isLoading && (
-              <div className="loading">
-                <div className="spinner"></div>
-                <p>Loading Game...</p>
-              </div>
-            )}
+           {isLoading && (
+  <div className="loading">
+    <div className="spinner" />
+    <p>
+      <span>LOADING SANS FIGHT</span>
+    </p>
+  </div>
+)}
+
             <iframe 
               id="gameFrame" 
               className="game-frame" 
