@@ -170,10 +170,13 @@ export default function Home() {
         </div>
       </div>
 
-      <footer>
-        <p>© Original game by Toby Fox | Undertale © 2015 Toby Fox</p>
-        <p>Simulator by community developers | Educational purposes only</p>
-        <p style={{marginTop: '15px', color: '#7f8c8d'}}>Are you ready for a bad time? 💀</p>
+     <footer className="footer">
+        <div className="footer-links">
+          <Link href="/about-us">About Us</Link>
+          <Link href="/copyright">Copyright</Link>
+          <Link href="/terms">Term Of Use</Link>
+          <Link href="/privacy-policy">Privacy Policy</Link>
+        </div>
       </footer>
     </>
   )
