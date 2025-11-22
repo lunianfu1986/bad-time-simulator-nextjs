@@ -289,3 +289,114 @@ footer p { margin: 5px 0; }
   .content-section { padding: 20px; }
   .content-section h2 { font-size: 1.5em; }
 }
+/* ========== Footer 样式 ========== */
+.footer {
+  background: linear-gradient(180deg, #5a8a9a 0%, #7ba3b0 100%);
+  color: #fff;
+  padding: 40px 20px 30px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: flex-start;
+  gap: 60px;
+  flex-wrap: wrap;
+  padding: 10px 50px;
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1em;
+  font-weight: 500;
+  transition: opacity 0.3s;
+}
+
+.footer-links a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* ========== 二级页面样式 ========== */
+.sub-page {
+  min-height: calc(100vh - 200px);
+  background: #f5f5f5;
+  padding: 40px 20px;
+}
+
+.sub-page-content {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+.sub-page-content h1 {
+  color: #2c3e50;
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 3px solid #e74c3c;
+}
+
+.sub-page-content h2 {
+  color: #e74c3c;
+  font-size: 1.5em;
+  margin: 35px 0 15px;
+}
+
+.sub-page-content p {
+  color: #555;
+  font-size: 1.05em;
+  margin-bottom: 15px;
+  line-height: 1.8;
+}
+
+.sub-page-content ul {
+  margin: 15px 0 20px 30px;
+  color: #555;
+  line-height: 2;
+}
+
+.sub-page-content li {
+  margin-bottom: 8px;
+}
+
+.sub-page-content strong {
+  color: #2c3e50;
+}
+
+.back-btn {
+  display: inline-block;
+  background: #e74c3c;
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-size: 1em;
+  margin-bottom: 30px;
+  transition: background 0.3s;
+}
+
+.back-btn:hover {
+  background: #c0392b;
+}
+
+/* ========== 响应式 - 二级页面 ========== */
+@media (max-width: 768px) {
+  .sub-page-content {
+    padding: 30px 20px;
+  }
+  
+  .sub-page-content h1 {
+    font-size: 1.8em;
+  }
+  
+  .footer-links {
+    justify-content: center;
+    gap: 30px;
+    padding: 10px 20px;
+  }
+}
