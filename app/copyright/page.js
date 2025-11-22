@@ -38,7 +38,7 @@ export default function Copyright() {
           </ul>
           
           <h2>Contact</h2>
-          <p>For copyright concerns, please contact: dmca@badtimesimulator.com</p>
+          <p>For copyright concerns, please contact: lunianfu1986@gmail.com</p>
         </div>
       </div>
 
