@@ -32,6 +32,12 @@ body {
   font-weight: bold;
   color: #fff;
   text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.logo:hover {
+  opacity: 0.8;
 }
 
 .logo span { color: #e74c3c; }
