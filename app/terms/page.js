@@ -50,7 +50,7 @@ export default function Terms() {
           <p>We reserve the right to modify these terms at any time. Continued use of the website constitutes acceptance of any changes.</p>
           
           <h2>8. Contact</h2>
-          <p>If you have any questions about these Terms, please contact us at: contact@badtimesimulator.com</p>
+          <p>If you have any questions about these Terms, please contact us at: lunianfu1986@gmail.com</p>
         </div>
       </div>
 
