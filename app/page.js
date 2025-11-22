@@ -33,7 +33,7 @@ export default function Home() {
     <>
       <nav className="top-nav">
         <div className="nav-container">
-          <span className="logo">💀 Bad Time <span>Simulator</span></span>
+          <Link href="/" className="logo">💀 Bad Time <span>Simulator</span></Link>
           <div className="nav-links">
             <a onClick={() => scrollTo('game')}>Game</a>
             <a onClick={() => scrollTo('about')}>About</a>
