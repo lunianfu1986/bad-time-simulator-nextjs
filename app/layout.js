@@ -6,6 +6,10 @@ export const metadata = {
   title: 'Bad Time Simulator - Are You Ready for a Bad Time?',
   description:
     'Bad Time Simulator - Fight Sans from Undertale. Test your skills in the hardest boss battle!',
+  // 如果你之后有 Search Console 验证，可以在这里加：
+  // verification: {
+  //   google: '你的-google-site-verification-字符串',
+  // },
 }
 
 export default function RootLayout({ children }) {
