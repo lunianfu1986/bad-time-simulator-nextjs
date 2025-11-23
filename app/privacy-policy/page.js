@@ -69,7 +69,7 @@ export default function PrivacyPolicy() {
           <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date.</p>
           
           <h2>9. Contact Us</h2>
-          <p>If you have any questions about this Privacy Policy, please contact us at: privacy@badtimesimulator.com</p>
+          <p>If you have any questions about this Privacy Policy, please contact us at: lunianfu1986@gmail.com</p>
         </div>
       </div>
 
