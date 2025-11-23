@@ -1,124 +1,12 @@
 'use client'
-
 import Link from 'next/link'
 import { useState } from 'react'
 
-// 所有游戏配置：这里控制 iframe 地址和下面的简介/攻略
-const games = {
-  sans: {
-    id: 'sans',
-    title: 'Bad Time Simulator',
-    short: 'Sans',
-    src: 'https://bad-time-simulator-compiled-eight.vercel.app/',
-    about: [
-      'Bad Time Simulator is a browser game inspired by the iconic Sans boss fight from Undertale.',
-      'You control a tiny SOUL and dodge waves of bones and Gaster Blasters in a fast-paced bullet-hell battle.',
-    ],
-    controls: [
-      'Move your SOUL with the arrow keys or WASD.',
-      'Confirm / advance text with Z or Enter.',
-      'Cancel / back with X or Shift.',
-      'Stay calm and focus on reading the attack patterns.',
-    ],
-    modes: [
-      'Classic Sans fight with original attack patterns.',
-      'Practice-style experience: no overworld, pure boss battle.',
-      'Perfect for players who want to train their dodging skills.',
-    ],
-    attacks: [
-      'Bone Slam – horizontal bone lines slam from above and below.',
-      'Bone Wall – tall walls of bones rush from left and right.',
-      'Gaster Blasters – lasers that lock onto your position and fire.',
-      'Platform Bones – jump between platforms while bones chase you.',
-      'Circular Patterns – spinning attacks that test tight movement.',
-      'Mixed Assault – everything at once near the end of the fight.',
-    ],
-    tips: [
-      'Focus more on patterns than reaction speed – most attacks are repeatable.',
-      'Memorize the opening sequence so you can reach the late phase more consistently.',
-      'During Gaster Blaster attacks, move early, not late – anticipate where the beams will cross.',
-      'If you get stuck on one pattern, practice that section by replaying from the beginning a few times.',
-    ],
-  },
-  trio: {
-    id: 'trio',
-    title: 'Bad Time Trio Simulator',
-    short: 'Trio',
-    src: 'https://lunianfu1986.github.io/bad-time-trio-simulator/',
-    about: [
-      'Bad Time Trio Simulator is a fan-made boss fight where multiple characters team up against you.',
-      'Compared with the classic Sans fight, patterns are denser and the battlefield is often more chaotic.',
-    ],
-    controls: [
-      'Move your SOUL with the arrow keys or WASD.',
-      'Confirm dialogs or options with Z or Enter.',
-      'Use X or Shift to cancel / go back in menus.',
-      'Stay flexible – attacks may come from multiple directions at once.',
-    ],
-    modes: [
-      'Multi-phase boss fight with several characters.',
-      'Attacks often mix different shapes and speeds.',
-      'Recommended for players who already passed classic Sans.',
-    ],
-    attacks: [
-      'Dense Bone Patterns – multiple layers of bones moving at different speeds.',
-      'Multi-direction Blasters – lasers firing from several corners.',
-      'Combined Phases – quick transitions between different attack styles.',
-      'Tight Space Dodging – smaller safe zones that require precise control.',
-    ],
-    tips: [
-      'Try to read the overall flow of each attack instead of watching only your SOUL.',
-      'Don’t panic when projectiles overlap – the safe spot is usually consistent each time.',
-      'Learn which attacks are “rush patterns” and which ones let you rest for a moment.',
-      'If a phase feels impossible, watch it a few times and look for repeating safe paths.',
-    ],
-  },
-  fnf: {
-    id: 'fnf',
-    title: 'FNF Undertale Web',
-    short: 'FNF',
-    src: 'https://lunianfu1986.github.io/FNF-Undertale-Web/',
-    about: [
-      "FNF Undertale Web is a rhythm game crossover combining Friday Night Funkin' with Undertale characters and music.",
-      'Instead of dodging bullets, you hit notes in time with the music to win rap battles against Undertale-inspired opponents.',
-    ],
-    controls: [
-      'Use the arrow keys to hit notes (↑ ↓ ← →).',
-      'On some keyboards you can also use WASD.',
-      'Press notes when the arrows overlap the target area.',
-      'Keeping a high accuracy will increase your score and keep you alive.',
-    ],
-    modes: [
-      'Story-style battles against Undertale-themed opponents.',
-      'Free play for replaying your favorite songs.',
-      'Multiple difficulty levels depending on the chart.',
-    ],
-    attacks: [
-      'Fast Note Streams – long chains of arrows in quick succession.',
-      'Cross Patterns – alternating left/right or up/down notes.',
-      'Trills & Jacks – repeated hits on the same direction.',
-      'Hold Notes – arrows you must keep pressed for a short time.',
-    ],
-    tips: [
-      'Start with easier songs or lower difficulty to learn the patterns.',
-      'Look slightly ahead of the beat so you can prepare for upcoming notes.',
-      'If you miss a section, don’t panic – focus on getting the next few notes perfect.',
-      'Play with sound on and stable frame rate; rhythm is much easier when the audio is clear.',
-    ],
-  },
-}
-
-// 左右两侧显示哪些游戏（可调整顺序）
-const sidebarGamesLeft = [games.sans, games.trio]
-const sidebarGamesRight = [games.fnf]
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [isFullscreen, setIsFullscreen] = useState(false)
-  const [currentGameId, setCurrentGameId] = useState('sans')
-
-  const currentGame = games[currentGameId]
 
   const reloadGame = () => {
     setIsLoading(true)
@@ -138,18 +26,14 @@ export default function Home() {
     }
   }
 
-  const handleSelectGame = (gameId) => {
-    setCurrentGameId(gameId)
-    setIsLoading(true)
-  }
+  const p1 = ['Bone Slam','Bone Wall','Gaster Blasters','Platform Attack','Bone Zone','Spinning Bones','Vertical Blasters','Random Bones','Blue Attack','Double Blasters','Circle Attack','Wave Pattern','Mixed Assault']
+  const p2 = ['Strongest Move','Ultimate Blaster','Chaos Bones','Gravity Shift','Final Pattern','Rapid Fire','Impossible Dodge','Death Circle','Last Stand','Megalovania','True Power']
 
   return (
     <>
       <nav className="top-nav">
         <div className="nav-container">
-          <Link href="/" className="logo">
-            <span>💀</span> <span>Bad Time Simulator</span>
-          </Link>
+          <Link href="/" className="logo">💀 Bad Time <span>Simulator</span></Link>
           <div className="nav-links">
             <a onClick={() => scrollTo('game')}>Game</a>
             <a onClick={() => scrollTo('about')}>About</a>
@@ -159,11 +43,12 @@ export default function Home() {
             <a onClick={() => scrollTo('tips')}>Tips</a>
           </div>
           <div className="search-box">
-            <input
-              type="text"
-              placeholder="Search section (about / tips...)"
-              value={searchTerm}
+            <input 
+              type="text" 
+              placeholder="Search..." 
+              value={searchTerm} 
               onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
             />
             <button onClick={handleSearch}>🔍</button>
           </div>
@@ -171,15 +56,11 @@ export default function Home() {
       </nav>
 
       <div className="container">
-        {/* 游戏区域 */}
         <div id="game" className="game-wrapper">
           <div className="game-header">
-            <h1>💀 {currentGame.title}</h1>
+            <h1>💀 Bad Time Simulator</h1>
             <div className="game-controls">
-              <button
-                className="control-btn"
-                onClick={() => setIsFullscreen(!isFullscreen)}
-              >
+              <button className="control-btn" onClick={() => setIsFullscreen(!isFullscreen)}>
                 ⛶ {isFullscreen ? 'Exit' : 'Fullscreen'}
               </button>
               <button className="control-btn" onClick={reloadGame}>
@@ -187,148 +68,119 @@ export default function Home() {
               </button>
             </div>
           </div>
+          <div className={isFullscreen ? 'game-container fullscreen' : 'game-container'}>
+           {isLoading && (
+  <div className="loading">
+    <div className="spinner" />
+    <p>
+      <span>LOADING SANS FIGHT</span>
+    </p>
+  </div>
+)}
 
-          {/* 外层包裹，用来定位左右悬浮图标 */}
-          <div className="game-center">
-            {/* 中间宽屏游戏框 */}
-            <div
-              className={
-                isFullscreen ? 'game-container fullscreen' : 'game-container'
-              }
-            >
-              {isLoading && (
-                <div className="loading">
-                  <div className="spinner"></div>
-                  <p>Loading Game...</p>
-                </div>
-              )}
-
-              <iframe
-                id="gameFrame"
-                className="game-frame"
-                src={currentGame.src}
-                title={currentGame.title}
-                allow="fullscreen"
-                onLoad={() => setIsLoading(false)}
-              />
-
-              {isFullscreen && (
-                <button
-                  className="exit-fullscreen-btn"
-                  onClick={() => setIsFullscreen(false)}
-                >
-                  ✕ Exit Fullscreen
-                </button>
-              )}
-            </div>
-
-            {/* 左右两侧悬浮游戏图标（全屏时隐藏） */}
-            {!isFullscreen && (
-              <>
-                <aside className="game-sidebar game-sidebar-left">
-                  {sidebarGamesLeft.map((game) => (
-                    <button
-                      key={game.id}
-                      type="button"
-                      className={
-                        'side-game-card' +
-                        (game.id === currentGameId
-                          ? ' side-game-card-active'
-                          : '')
-                      }
-                      onClick={() => handleSelectGame(game.id)}
-                    >
-                      <div className="side-game-thumb">{game.short}</div>
-                      <div className="side-game-title">{game.title}</div>
-                    </button>
-                  ))}
-                </aside>
-
-                <aside className="game-sidebar game-sidebar-right">
-                  {sidebarGamesRight.map((game) => (
-                    <button
-                      key={game.id}
-                      type="button"
-                      className={
-                        'side-game-card' +
-                        (game.id === currentGameId
-                          ? ' side-game-card-active'
-                          : '')
-                      }
-                      onClick={() => handleSelectGame(game.id)}
-                    >
-                      <div className="side-game-thumb">{game.short}</div>
-                      <div className="side-game-title">{game.title}</div>
-                    </button>
-                  ))}
-                </aside>
-              </>
+            <iframe 
+              id="gameFrame" 
+              className="game-frame" 
+              src="https://bad-time-simulator-compiled-eight.vercel.app/" 
+              title="Bad Time Simulator" 
+              allow="fullscreen" 
+              onLoad={() => setIsLoading(false)} 
+            />
+            {isFullscreen && (
+              <button className="exit-fullscreen-btn" onClick={() => setIsFullscreen(false)}>
+                ✕ Exit Fullscreen
+              </button>
             )}
           </div>
         </div>
 
-        {/* About 区块，随当前游戏变化 */}
-        <section id="about" className="content-section">
-          <h2>About {currentGame.title}</h2>
-          {currentGame.about.map((p, idx) => (
-            <p key={idx}>{p}</p>
-          ))}
-        </section>
+        <div id="about" className="content-section">
+          <h2>About Bad Time Simulator</h2>
+          <p>Bad Time Simulator requires your agility and control skills to beat Sans - the final boss. You need to keep your heart from being hurt by enemy attacks. You have to use your skills to defeat the legendary Sans with epic power. It is time to prove your ability with unbelievable goals.</p>
+          <p>The unique soundtrack of this game is called Bad Time which is derived from Megalovania and Monty on the Run. This music can impress any player with its intense rhythm and energy.</p>
+          <div className="info-box warning">
+            <h4>⚠️ Difficulty Warning</h4>
+            <p>This is probably an extremely difficult game. Control skills and agility are important keys to mastering this game. You should be wary of Sans words and not trust them because Sans can instantly kill you when you are defenseless.</p>
+          </div>
+          <h3>Who is Sans?</h3>
+          <p>The villain in this game is Sans. He is a skeleton character wearing a blue jacket from Undertale. He seems easy-going, laid-back, and friendly. However, he is actually a final boss who possesses terrifying epic powers. This Sans character can create and manipulate bones, use deadly lasers, and possess many other amazing abilities. In this game, Sans tries to destroy you and you have to stay alive.</p>
+        </div>
 
-        {/* Controls 区块 */}
-        <section id="controls" className="content-section">
-          <h2>{currentGame.title} Controls</h2>
-          <ul>
-            {currentGame.controls.map((c, idx) => (
-              <li key={idx}>{c}</li>
-            ))}
-          </ul>
-        </section>
+        <div id="controls" className="content-section">
+          <h2>How to Play - Game Controls</h2>
+          <div className="feature-grid">
+            <div className="feature-card"><h4>⬆️⬇️⬅️➡️ Arrow Keys</h4><p>Move your soul (red heart) to dodge Sans deadly attacks</p></div>
+            <div className="feature-card"><h4>Z Key</h4><p>Confirm selection / Attack</p></div>
+            <div className="feature-card"><h4>X Key</h4><p>Cancel operation</p></div>
+            <div className="feature-card"><h4>C Key</h4><p>Open menu</p></div>
+          </div>
+          <h3>Soul Modes</h3>
+          <p>To conquer this game, you have to master the soul mode and your enemy attack. Your soul or heart will appear in two different modes:</p>
+          <div className="feature-grid">
+            <div className="feature-card"><h4>🔵 Blue Soul Mode</h4><p>Your heart can control gravity. The ability of the heart to move will depend on how long you press the joystick. This allows for precise vertical movements.</p></div>
+            <div className="feature-card"><h4>❤️ Red Soul Mode</h4><p>Your red heart has the ability to hover and it is very easy to move in any direction. This is the default mode with free 360-degree movement.</p></div>
+          </div>
+          <div className="info-box">
+            <h4>⚔️ Top 3 Sans Attacks</h4>
+            <p><strong>Dragon Skulls:</strong> Summon dragon-shaped skulls that fire deadly lasers</p>
+            <p><strong>Psychokinesis:</strong> Controls your soul movement direction</p>
+            <p><strong>Bone Attack:</strong> Fires bone projectiles from all directions</p>
+          </div>
+        </div>
 
-        {/* Modes 区块 */}
-        <section id="modes" className="content-section">
-          <h2>{currentGame.title} Game Modes &amp; Style</h2>
-          <ul>
-            {currentGame.modes.map((m, idx) => (
-              <li key={idx}>{m}</li>
-            ))}
-          </ul>
-        </section>
+        <div id="modes" className="content-section">
+          <h2>Game Modes</h2>
+          <p>Participating in this game, you can choose to play in different modes. Let us explore the highlights of each game mode:</p>
+          <div className="feature-grid">
+            <div className="feature-card"><h4>Normal Mode</h4><p>Complete Sans fight experience with all 24 attacks divided into two parts. This is the full battle as it appears in Undertale.</p></div>
+            <div className="feature-card"><h4>Practice Mode</h4><p>Practice specific attack patterns and master each attack rhythm without starting from the beginning every time.</p></div>
+            <div className="feature-card"><h4>Endless Mode</h4><p>Challenge your limits and see how long you can survive against endless waves of attacks!</p></div>
+            <div className="feature-card"><h4>Single Attack Mode</h4><p>Experience any single attack from the game, even if you cannot overcome the initial attacks in normal mode.</p></div>
+            <div className="feature-card"><h4>Custom Attack Mode</h4><p>Create your own attack combinations and patterns! Design your own challenge.</p></div>
+          </div>
+        </div>
 
-        {/* Attacks 区块 */}
-        <section id="attacks" className="content-section">
-          <h2>Key Patterns in {currentGame.title}</h2>
+        <div id="attacks" className="content-section">
+          <h2>Sans 24 Attacks</h2>
+          <p>The attacks in this game all represent Sans attacks. Sans has 24 attacks which means this game has 24 attacks. They are divided into two parts and the attacks in the second part will be more difficult.</p>
+          <h3>Part One (13 Attacks)</h3>
           <div className="attack-list">
-            {currentGame.attacks.map((a, idx) => (
-              <div key={idx} className="attack-item">
-                {a}
-              </div>
-            ))}
+            {p1.map((a, i) => <div key={i} className="attack-item">{a}</div>)}
           </div>
-        </section>
+          <h3>Part Two (11 Harder Attacks)</h3>
+          <div className="attack-list">
+            {p2.map((a, i) => <div key={i} className="attack-item">{a}</div>)}
+          </div>
+        </div>
 
-        {/* Tips 区块 */}
-        <section id="tips" className="content-section">
-          <h2>Tips &amp; Strategy for {currentGame.title}</h2>
-          <ul>
-            {currentGame.tips.map((t, idx) => (
-              <li key={idx}>{t}</li>
-            ))}
-          </ul>
-        </section>
-
-        <footer className="footer">
-          <div className="footer-links">
-            <Link href="/about-us">About Us</Link>
-            <Link href="/copyright">Copyright</Link>
-            <Link href="/terms-of-use">Terms of Use</Link>
-            <Link href="/privacy-policy">Privacy Policy</Link>
+        <div id="tips" className="content-section">
+          <h2>Survival Tips and Strategies</h2>
+          <h3>Understanding the Battle System</h3>
+          <p>Get ready for a dangerous yet exciting battle with Sans. In this skill game, your soul is symbolized by a heart which is being attacked by Sans. Your task is to control your heart to avoid the deadly attacks of this boss. Each time you dodge an attack, he will immediately create other attacks to knock you down. Therefore, it is better to focus on observing and reacting quickly.</p>
+          <h3>Health Management</h3>
+          <p>In this game, you should notice your character health bar. There are four buttons including Fight, Act, Item, and Mercy on the screen. After you get past Sans attacks, your heart strength can drop significantly. You will eat useful items to restore your strength.</p>
+          <div className="feature-grid">
+            <div className="feature-card"><h4>🥩 Steak</h4><p>Restores a moderate amount of health</p></div>
+            <div className="feature-card"><h4>📖 L.Hero</h4><p>Legendary Hero item, major restoration</p></div>
+            <div className="feature-card"><h4>📄 L.Hero Page 1</h4><p>Additional recovery item</p></div>
           </div>
-          <div>
-            Fan-made site inspired by Undertale — not affiliated with Toby Fox.
+          <h3>How to Win</h3>
+          <p>Sans seems to be invincible in this game when possessing incredible power and attack ability. However, in addition to protecting yourself from his attacks, you can still attack Sans. The best time to do your hits is when Sans sleeps. Work hard to survive the special attack and wait until Sans falls asleep. However, you should not move or make any sound because Sans will be awakened and you will have to go through the survival battles again.</p>
+          <div className="info-box success">
+            <h4>🎬 Game Ending</h4>
+            <p>When you defeat Sans, it means you are in the bad time simulator ending. You will leave the room when Sans dies and the heart also disappears. If you want to avoid losing your soul, you have to reset.</p>
           </div>
-        </footer>
+        </div>
       </div>
+
+     <footer className="footer">
+        <div className="footer-links">
+          <Link href="/about-us">About Us</Link>
+          <Link href="/copyright">Copyright</Link>
+          <Link href="/terms">Term Of Use</Link>
+          <Link href="/privacy-policy">Privacy Policy</Link>
+        </div>
+      </footer>
     </>
   )
 }
