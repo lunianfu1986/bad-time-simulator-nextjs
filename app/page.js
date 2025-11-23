@@ -1,6 +1,23 @@
 'use client'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react';
+const sidebarGamesLeft = [
+  { id: 'fnf-undertale', title: 'FNF vs Undertale', short: 'FNF' },
+  { id: 'geometry-dash', title: 'Geometry Dash Lite', short: 'GD' },
+  { id: 'fnaf-sister', title: "Five Nights at Freddy's: Sister Location", short: 'FNAF' },
+  { id: 'fnf', title: 'Friday Night Funkin\'', short: 'FNF' },
+  { id: 'among-us', title: 'Among Us', short: 'Among Us' },
+  { id: 'smash-karts', title: 'Smash Karts', short: 'Karts' }
+];
+
+const sidebarGamesRight = [
+  { id: 'undertale', title: 'Undertale', short: 'UT' },
+  { id: 'bad-monday', title: 'Undergarf: Bad Monday', short: 'Garf' },
+  { id: 'sans-fight', title: 'Sans Fight Simulator', short: 'Sans' },
+  { id: 'deltarune', title: 'Deltarune Neo Battle', short: 'Neo' },
+  { id: 'tomb-mask', title: 'Tomb of the Mask', short: 'Tomb' },
+  { id: 'sir-kain', title: 'Sir Kain Battle', short: 'Kain' }
+];
 
 
 export default function Home() {
