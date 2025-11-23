@@ -120,6 +120,9 @@ body {
 .game-wrapper {
   margin-bottom: 30px;
 }
+.game-center {
+  position: relative;
+}
 
 .game-header {
   display: flex;
