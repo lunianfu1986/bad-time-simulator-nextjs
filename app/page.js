@@ -191,13 +191,41 @@ export default function Home() {
             </div>
           </div>
 
-          {/* 中间游戏框：保持原来宽屏；左右游戏按钮悬浮叠在上面 */}
-          <div
-            className={
-              isFullscreen ? 'game-container fullscreen' : 'game-container'
-            }
-          >
-            {/* 左右侧游戏列表（全屏时隐藏） */}
+          {/* 新增 game-center，用来定位两侧悬浮图标 */}
+          <div className="game-center">
+            {/* 中间游戏框：保持宽屏 */}
+            <div
+              className={
+                isFullscreen ? 'game-container fullscreen' : 'game-container'
+              }
+            >
+              {isLoading && (
+                <div className="loading">
+                  <div className="spinner"></div>
+                  <p>Loading Game...</p>
+                </div>
+              )}
+
+              <iframe
+                id="gameFrame"
+                className="game-frame"
+                src={currentGame.src}
+                title={currentGame.title}
+                allow="fullscreen"
+                onLoad={() => setIsLoading(false)}
+              />
+
+              {isFullscreen && (
+                <button
+                  className="exit-fullscreen-btn"
+                  onClick={() => setIsFullscreen(false)}
+                >
+                  ✕ Exit Fullscreen
+                </button>
+              )}
+            </div>
+
+            {/* 左右两侧游戏图标：悬浮在游戏框外面 */}
             {!isFullscreen && (
               <>
                 <aside className="game-sidebar game-sidebar-left">
@@ -239,31 +267,6 @@ export default function Home() {
                 </aside>
               </>
             )}
-
-            {isLoading && (
-              <div className="loading">
-                <div className="spinner"></div>
-                <p>Loading Game...</p>
-              </div>
-            )}
-
-            <iframe
-              id="gameFrame"
-              className="game-frame"
-              src={currentGame.src}
-              title={currentGame.title}
-              allow="fullscreen"
-              onLoad={() => setIsLoading(false)}
-            />
-
-            {isFullscreen && (
-              <button
-                className="exit-fullscreen-btn"
-                onClick={() => setIsFullscreen(false)}
-              >
-                ✕ Exit Fullscreen
-              </button>
-            )}
           </div>
         </div>
 
@@ -301,8 +304,7 @@ export default function Home() {
           <div className="attack-list">
             {currentGame.attacks.map((a, idx) => (
               <div key={idx} className="attack-item">
-                {a}
-              </div>
+                {a}</div>
             ))}
           </div>
         </section>
@@ -331,4 +333,20 @@ export default function Home() {
       </div>
     </>
   )
+}
+``` :contentReference[oaicite:0]{index=0}
+
+---
+
+## 2️⃣ 调好的 `app/globals.css`（只改了三处）
+
+你这个文件比较长，我只改了 **很少几行**，直接给你说明“替换点”：
+
+### ① 修改 `.game-wrapper`
+
+找到这段：
+
+```css
+.game-wrapper {
+  margin-bottom: 30px;
 }
