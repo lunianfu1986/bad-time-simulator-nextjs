@@ -598,3 +598,13 @@ body {
     padding: 10px 20px;
   }
 }
+@media (max-width: 768px) {
+  .game-layout {
+    flex-direction: column;
+  }
+
+  .game-sidebar {
+    display: none;
+  }
+}
+
