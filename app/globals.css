@@ -126,8 +126,6 @@ body {
 /* 包裹中间游戏框，用来定位两侧悬浮图标 */
 .game-center {
   position: relative;
-  display: flex;
-  justify-content: center;
 }
 
 .game-header {
@@ -185,6 +183,7 @@ body {
   height: 600px;
   background: radial-gradient(circle at top, #181829 0, #050608 70%);
   border: 1px solid rgba(148, 163, 184, 0.45);
+  width: 100%; /* 关键：占满整行宽度 */
 }
 
 .game-frame {
