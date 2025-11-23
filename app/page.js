@@ -4,7 +4,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 
-// 所有游戏的统一配置（后期只要改这里就能加新游戏）
+// 所有游戏配置：只要改这里就能加新游戏
 const games = {
   sans: {
     id: 'sans',
@@ -109,7 +109,7 @@ const games = {
   }
 }
 
-// 把配置拆成左右两侧列表，方便布局（你可以改顺序）
+// 左右两侧要显示哪些游戏（可以自己改顺序）
 const sidebarGamesLeft = [games.sans, games.trio]
 const sidebarGamesRight = [games.fnf]
 
@@ -118,7 +118,7 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState('')
   const [isFullscreen, setIsFullscreen] = useState(false)
 
-  // 当前选中的游戏 ID
+  // 当前选中的游戏
   const [currentGameId, setCurrentGameId] = useState('sans')
   const currentGame = games[currentGameId]
 
@@ -140,7 +140,7 @@ export default function Home() {
     }
   }
 
-  // 点击侧边图标：切换当前游戏 & 重新加载
+  // 点击左右游戏图标
   const handleSelectGame = (gameId) => {
     setCurrentGameId(gameId)
     setIsLoading(true)
@@ -177,9 +177,7 @@ export default function Home() {
         {/* 游戏区域 */}
         <div id="game" className="game-wrapper">
           <div className="game-header">
-            <h1>
-              💀 {currentGame.title}
-            </h1>
+            <h1>💀 {currentGame.title}</h1>
             <div className="game-controls">
               <button
                 className="control-btn"
@@ -193,76 +191,78 @@ export default function Home() {
             </div>
           </div>
 
-          {/* 左右两边游戏选择 + 中间 iframe */}
-          <div className="game-layout">
-            {/* 左侧游戏列表（全屏时隐藏） */}
+          {/* 中间游戏框：保持原来宽屏；左右游戏按钮悬浮叠在上面 */}
+          <div
+            className={
+              isFullscreen ? 'game-container fullscreen' : 'game-container'
+            }
+          >
+            {/* 左右侧游戏列表（全屏时隐藏） */}
             {!isFullscreen && (
-              <aside className="game-sidebar">
-                {sidebarGamesLeft.map((game) => (
-                  <button
-                    key={game.id}
-                    type="button"
-                    className={
-                      'side-game-card' +
-                      (game.id === currentGameId ? ' side-game-card-active' : '')
-                    }
-                    onClick={() => handleSelectGame(game.id)}
-                  >
-                    <div className="side-game-thumb">{game.short}</div>
-                    <div className="side-game-title">{game.title}</div>
-                  </button>
-                ))}
-              </aside>
+              <>
+                <aside className="game-sidebar game-sidebar-left">
+                  {sidebarGamesLeft.map((game) => (
+                    <button
+                      key={game.id}
+                      type="button"
+                      className={
+                        'side-game-card' +
+                        (game.id === currentGameId
+                          ? ' side-game-card-active'
+                          : '')
+                      }
+                      onClick={() => handleSelectGame(game.id)}
+                    >
+                      <div className="side-game-thumb">{game.short}</div>
+                      <div className="side-game-title">{game.title}</div>
+                    </button>
+                  ))}
+                </aside>
+
+                <aside className="game-sidebar game-sidebar-right">
+                  {sidebarGamesRight.map((game) => (
+                    <button
+                      key={game.id}
+                      type="button"
+                      className={
+                        'side-game-card' +
+                        (game.id === currentGameId
+                          ? ' side-game-card-active'
+                          : '')
+                      }
+                      onClick={() => handleSelectGame(game.id)}
+                    >
+                      <div className="side-game-thumb">{game.short}</div>
+                      <div className="side-game-title">{game.title}</div>
+                    </button>
+                  ))}
+                </aside>
+              </>
             )}
 
-            {/* 中间游戏容器 */}
-            <div
-              className={
-                isFullscreen ? 'game-container fullscreen' : 'game-container'
-              }
-            >
-              {isLoading && (
-                <div className="loading">
-                  <div className="spinner"></div>
-                  <p>Loading Game...</p>
-                </div>
-              )}
-              <iframe
-                id="gameFrame"
-                className="game-frame"
-                src={currentGame.src}
-                title={currentGame.title}
-                allow="fullscreen"
-                onLoad={() => setIsLoading(false)}
-              />
-              {isFullscreen && (
-                <button
-                  className="exit-fullscreen-btn"
-                  onClick={() => setIsFullscreen(false)}
-                >
-                  ✕ Exit Fullscreen
-                </button>
-              )}
-            </div>
+            {isLoading && (
+              <div className="loading">
+                <div className="spinner"></div>
+                <p>Loading Game...</p>
+              </div>
+            )}
 
-            {/* 右侧游戏列表（全屏时隐藏） */}
-            {!isFullscreen && (
-              <aside className="game-sidebar">
-                {sidebarGamesRight.map((game) => (
-                  <button
-                    key={game.id}
-                    type="button"
-                    className={
-                      'side-game-card' +
-                      (game.id === currentGameId ? ' side-game-card-active' : '')
-                    }
-                    onClick={() => handleSelectGame(game.id)}
-                  >
-                    <div className="side-game-thumb">{game.short}</div>
-                    <div className="side-game-title">{game.title}</div>
-                  </button>
-                ))}
-              </aside>
+            <iframe
+              id="gameFrame"
+              className="game-frame"
+              src={currentGame.src}
+              title={currentGame.title}
+              allow="fullscreen"
+              onLoad={() => setIsLoading(false)}
+            />
+
+            {isFullscreen && (
+              <button
+                className="exit-fullscreen-btn"
+                onClick={() => setIsFullscreen(false)}
+              >
+                ✕ Exit Fullscreen
+              </button>
             )}
           </div>
         </div>
@@ -295,7 +295,7 @@ export default function Home() {
           </ul>
         </section>
 
-        {/* Attacks / Patterns / Songs 区域 */}
+        {/* Attacks / Patterns 区域 */}
         <section id="attacks" className="content-section">
           <h2>Key Patterns in {currentGame.title}</h2>
           <div className="attack-list">
@@ -317,7 +317,6 @@ export default function Home() {
           </ul>
         </section>
 
-        {/* 页脚保持不动，如果你原来有的话可以放这里 */}
         <footer className="footer">
           <div className="footer-links">
             <Link href="/about-us">About Us</Link>
@@ -325,7 +324,9 @@ export default function Home() {
             <Link href="/terms-of-use">Terms of Use</Link>
             <Link href="/privacy-policy">Privacy Policy</Link>
           </div>
-          <div>Fan-made site inspired by Undertale — not affiliated with Toby Fox.</div>
+          <div>
+            Fan-made site inspired by Undertale — not affiliated with Toby Fox.
+          </div>
         </footer>
       </div>
     </>
