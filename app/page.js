@@ -24,6 +24,57 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [isFullscreen, setIsFullscreen] = useState(false)
+  // 评分系统：默认 8132 票，4.3 分
+const [rating, setRating] = useState(4.3);
+const [votes, setVotes] = useState(8132);
+const [userRating, setUserRating] = useState(null);
+
+// 从 localStorage 读取历史评分（仅本机）
+useEffect(() => {
+  try {
+    const stored = window.localStorage.getItem('bts-rating');
+    if (stored) {
+      const data = JSON.parse(stored);
+      if (typeof data.rating === 'number') setRating(data.rating);
+      if (typeof data.votes === 'number') setVotes(data.votes);
+      if (typeof data.userRating === 'number') setUserRating(data.userRating);
+    }
+  } catch (e) {
+    console.warn('Failed to load rating from localStorage', e);
+  }
+}, []);
+
+const handleRate = (value) => {
+  // value: 1-5
+  let newVotes = votes;
+  let newRating;
+
+  if (userRating == null) {
+    // 第一次投票
+    newVotes = votes + 1;
+    newRating = ((rating * votes) + value) / newVotes;
+  } else {
+    // 修改自己的评分：从平均值里减掉旧评分，加上新评分
+    newRating = ((rating * votes) - userRating + value) / votes;
+  }
+
+  newRating = parseFloat(newRating.toFixed(2));
+
+  setVotes(newVotes);
+  setRating(newRating);
+  setUserRating(value);
+
+  try {
+    window.localStorage.setItem('bts-rating', JSON.stringify({
+      rating: newRating,
+      votes: newVotes,
+      userRating: value
+    }));
+  } catch (e) {
+    console.warn('Failed to save rating', e);
+  }
+};
+
 
   const reloadGame = () => {
     setIsLoading(true)
