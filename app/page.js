@@ -8,11 +8,103 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState('')
   const [isFullscreen, setIsFullscreen] = useState(false)
 
+  // 当前在中间 iframe 里播放哪个游戏
+  const [currentGame, setCurrentGame] = useState(
+    'https://bad-time-simulator-compiled-eight.vercel.app/'
+  )
+
+  // 左侧游戏列表（以后你可以把 src 换成自己的 github / 本地 index.html）
+  const sidebarGamesLeft = [
+    {
+      id: 'bad-time',
+      title: 'Bad Time Simulator',
+      short: 'BTS',
+      src: 'https://bad-time-simulator-compiled-eight.vercel.app/',
+    },
+    {
+      id: 'game2',
+      title: 'Future Game 2',
+      short: 'G2',
+      src: 'https://example.com/game2/index.html',
+    },
+    {
+      id: 'game3',
+      title: 'Future Game 3',
+      short: 'G3',
+      src: 'https://example.com/game3/index.html',
+    },
+    {
+      id: 'game4',
+      title: 'Future Game 4',
+      short: 'G4',
+      src: 'https://example.com/game4/index.html',
+    },
+    {
+      id: 'game5',
+      title: 'Future Game 5',
+      short: 'G5',
+      src: 'https://example.com/game5/index.html',
+    },
+    {
+      id: 'game6',
+      title: 'Future Game 6',
+      short: 'G6',
+      src: 'https://example.com/game6/index.html',
+    },
+  ]
+
+  // 右侧游戏列表
+  const sidebarGamesRight = [
+    {
+      id: 'game7',
+      title: 'Future Game 7',
+      short: 'G7',
+      src: 'https://example.com/game7/index.html',
+    },
+    {
+      id: 'game8',
+      title: 'Future Game 8',
+      short: 'G8',
+      src: 'https://example.com/game8/index.html',
+    },
+    {
+      id: 'game9',
+      title: 'Future Game 9',
+      short: 'G9',
+      src: 'https://example.com/game9/index.html',
+    },
+    {
+      id: 'game10',
+      title: 'Future Game 10',
+      short: 'G10',
+      src: 'https://example.com/game10/index.html',
+    },
+    {
+      id: 'game11',
+      title: 'Future Game 11',
+      short: 'G11',
+      src: 'https://example.com/game11/index.html',
+    },
+    {
+      id: 'game12',
+      title: 'Future Game 12',
+      short: 'G12',
+      src: 'https://example.com/game12/index.html',
+    },
+  ]
+
   const reloadGame = () => {
     setIsLoading(true)
     const iframe = document.getElementById('gameFrame')
     if (iframe) iframe.src = iframe.src
   }
+
+  // 点击侧边图标时，切换中间 iframe 的游戏
+  const handleSelectGame = (gameSrc) => {
+    setIsLoading(true)
+    setCurrentGame(gameSrc)
+  }
+
 
   const scrollTo = (id) => {
     const el = document.getElementById(id)
